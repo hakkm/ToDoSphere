@@ -84,8 +84,14 @@ function Todo({ todos, body, isActive, onTodosChange }) {
             checked={complete}
             onChange={(e) => {
               const foundIndex = todos.findIndex((todo) => todo.body === body);
-              todos[foundIndex].active = !complete;
-              onTodosChange(todos);
+              const updatedTodos = [...todos];
+
+              updatedTodos[foundIndex] = {
+                ...updatedTodos[foundIndex],
+                active: !complete,
+              };
+
+              onTodosChange(updatedTodos);
               setComplete(!complete);
             }}
           />{" "}
