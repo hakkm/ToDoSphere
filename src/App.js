@@ -8,27 +8,20 @@ const TODOS = [
 
 function AddBar({ onTodosChange, todos }) {
   const [add, setAdd] = useState("Eat");
+  function handleSubmit(e) {
+    e.preventDefault();
+    onTodosChange([
+      ...todos,
+      { id: todos[todos.length - 1].id + 1, body: add, active: false },
+    ]);
+    setAdd("");
+  }
   return (
-    <>
-      <div>
-        <label htmlFor="add">What Needs To Be Done?</label>
-      </div>
-      <input
-        id="add"
-        value={add}
-        onChange={(e) => setAdd(e.target.value)}
-      ></input>
-      <button
-        onClick={() => {
-          onTodosChange([
-            ...todos,
-            { id: todos[todos.length - 1].id + 1, body: add, active: false },
-          ]);
-        }}
-      >
-        Add
-      </button>
-    </>
+    <form onSubmit={handleSubmit}>
+      <label>What Needs To Be Done?</label>
+      <input value={add} onChange={(e) => setAdd(e.target.value)}></input>
+      <button>Add</button>
+    </form>
   );
 }
 
