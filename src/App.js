@@ -2,8 +2,8 @@ import { useState } from "react";
 
 const TODOS = [
   { id: 1, body: "Eat Healthy Food", active: false },
-  { id: 2, body: "Sleep at Time", active: false },
-  { id: 3, body: "Sleep at Time", active: false },
+  { id: 2, body: "Sleep at Time", active: true },
+  { id: 3, body: "Break", active: false },
 ];
 
 function AddBar({ onTodosChange, todos }) {
@@ -42,7 +42,7 @@ function FilterBar({ filter, onFilterChange }) {
   );
 }
 
-function Todos({ todos, filter }) {
+function Todos({ todos, filter, onTodosChange }) {
   console.log(filter);
   function filterTodo(active) {
     console.log(active);
@@ -61,18 +61,35 @@ function Todos({ todos, filter }) {
       {todos
         .filter(({ active }) => filterTodo(active))
         .map(({ id, body, active }) => (
-          <Todo key={id} body={body} isActive={active} />
+          <Todo
+            key={id}
+            body={body}
+            isActive={active}
+            todos={todos}
+            onTodosChange={onTodosChange}
+          />
         ))}
     </>
   );
 }
 
-function Todo({ body, isActive }) {
+function Todo({ todos, body, isActive, onTodosChange }) {
+  const [complete, setComplete] = useState(isActive);
   return (
     <>
       <div>
         <label>
-          <input type="checkbox" checked={isActive} /> {body}
+          <input
+            type="checkbox"
+            checked={complete}
+            onChange={(e) => {
+              const foundIndex = todos.findIndex((todo) => todo.body === body);
+              todos[foundIndex].active = !complete;
+              onTodosChange(todos);
+              setComplete(!complete);
+            }}
+          />{" "}
+          {body}
         </label>
       </div>
       <div>
@@ -90,7 +107,7 @@ export default function App() {
     <>
       <AddBar onTodosChange={setTodos} todos={todos} />
       <FilterBar filter={filter} onFilterChange={setFilter} />
-      <Todos filter={filter} todos={todos} />
+      <Todos onTodosChange={setTodos} filter={filter} todos={todos} />
     </>
   );
 }
