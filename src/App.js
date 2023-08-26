@@ -3,6 +3,7 @@ import { useState } from "react";
 const TODOS = [
   { id: 1, body: "Eat Healthy Food", active: false },
   { id: 2, body: "Sleep at Time", active: false },
+  { id: 3, body: "Sleep at Time", active: false },
 ];
 
 function AddBar({ onTodosChange, todos }) {
@@ -19,8 +20,6 @@ function AddBar({ onTodosChange, todos }) {
       ></input>
       <button
         onClick={() => {
-          console.log(add);
-          console.log(todos);
           onTodosChange([
             ...todos,
             { id: todos[todos.length - 1].id + 1, body: add, active: false },
@@ -33,23 +32,37 @@ function AddBar({ onTodosChange, todos }) {
   );
 }
 
-function FilterBar() {
+function FilterBar({ filter, onFilterChange }) {
   return (
     <div>
-      <button>All</button>
-      <button>Active</button>
-      <button>Completed</button>
+      <button onClick={() => onFilterChange("All")}>All</button>
+      <button onClick={() => onFilterChange("Active")}>Active</button>
+      <button onClick={() => onFilterChange("Completed")}>Completed</button>
     </div>
   );
 }
 
-function Todos({ todos }) {
+function Todos({ todos, filter }) {
+  console.log(filter);
+  function filterTodo(active) {
+    console.log(active);
+    switch (filter) {
+      case "All":
+        return true;
+      case "Active":
+        return !active;
+      default:
+        return active;
+    }
+  }
   return (
     <>
       <h2># Task Remaining</h2>
-      {todos.map(({ id, body, active }) => (
-        <Todo key={id} body={body} isActive={active} />
-      ))}
+      {todos
+        .filter(({ active }) => filterTodo(active))
+        .map(({ id, body, active }) => (
+          <Todo key={id} body={body} isActive={active} />
+        ))}
     </>
   );
 }
@@ -76,7 +89,7 @@ export default function App() {
   return (
     <>
       <AddBar onTodosChange={setTodos} todos={todos} />
-      <FilterBar />
+      <FilterBar filter={filter} onFilterChange={setFilter} />
       <Todos filter={filter} todos={todos} />
     </>
   );
