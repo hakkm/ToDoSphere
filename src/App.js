@@ -56,7 +56,9 @@ function Todos({ todos, filter, onTodosChange }) {
   }
   return (
     <>
-      <h2>{todos.length} Task Remaining</h2>
+      <h2>
+        {todos.filter(({ active }) => filterTodo(active)).length} Task Remaining
+      </h2>
       {todos
         .filter(({ active }) => filterTodo(active))
         .map(({ id, body, active }) => (
