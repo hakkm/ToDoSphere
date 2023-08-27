@@ -50,7 +50,7 @@ function Todos({ todos, filter, onTodosChange }) {
   }
   return (
     <>
-      <h2># Task Remaining</h2>
+      <h2>{todos.length} Task Remaining</h2>
       {todos
         .filter(({ active }) => filterTodo(active))
         .map(({ id, body, active }) => (
@@ -93,7 +93,16 @@ function Todo({ todos, body, isActive, onTodosChange }) {
       </div>
       <div>
         <button>Edit</button>
-        <button>Delete</button>
+        <button
+          onClick={() => {
+            const foundIndex = todos.findIndex((todo) => todo.body === body);
+            const deletedTodos = [...todos];
+            deletedTodos.splice(foundIndex, 1);
+            onTodosChange(deletedTodos);
+          }}
+        >
+          Delete
+        </button>
       </div>
     </>
   );
