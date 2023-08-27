@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { nanoid } from "nanoid";
 
 export default function AddBar({ onTodosChange, todos }) {
   const [add, setAdd] = useState("Eat");
@@ -6,7 +7,7 @@ export default function AddBar({ onTodosChange, todos }) {
     e.preventDefault();
     onTodosChange([
       ...todos,
-      { id: todos[todos.length - 1].id + 1, body: add, active: false },
+      { id: `todo-${nanoid()}`, body: add, active: false },
     ]);
     setAdd("");
   }
