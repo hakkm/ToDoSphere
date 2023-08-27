@@ -49,12 +49,10 @@ export default function Todo({ todos, body, isActive, onTodosChange }) {
             <button onClick={() => setEdit(true)}>Edit</button>
             <button
               onClick={() => {
-                const foundIndex = todos.findIndex(
-                  (todo) => todo.body === body
+                const remainingTodos = todos.filter(
+                  (todo) => todo.body !== body
                 );
-                const deletedTodos = [...todos];
-                deletedTodos.splice(foundIndex, 1);
-                onTodosChange(deletedTodos);
+                onTodosChange(remainingTodos);
               }}
             >
               Delete
