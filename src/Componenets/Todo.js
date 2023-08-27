@@ -11,15 +11,11 @@ export default function Todo({ todos, body, isActive, onTodosChange }) {
   }, [edit]);
   function handleSave(e) {
     e.preventDefault();
-
-    const foundIndex = todos.findIndex((todo) => todo.body === body);
-    const updatedTodos = [...todos];
-
-    updatedTodos[foundIndex] = {
-      ...updatedTodos[foundIndex],
-      body: e.target.newName.value,
-    };
-
+    // Edit todo and save
+    const updatedTodos = todos.map((todo) => {
+      if (body === todo.body) return { ...todo, body: e.target.newName.value };
+      return todo;
+    });
     onTodosChange(updatedTodos);
     setEdit(false);
   }
