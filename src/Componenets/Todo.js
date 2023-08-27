@@ -33,16 +33,11 @@ export default function Todo({ todos, body, isActive, onTodosChange }) {
                 type="checkbox"
                 checked={complete}
                 onChange={(e) => {
-                  const foundIndex = todos.findIndex(
-                    (todo) => todo.body === body
-                  );
-                  const updatedTodos = [...todos];
-
-                  updatedTodos[foundIndex] = {
-                    ...updatedTodos[foundIndex],
-                    active: !complete,
-                  };
-
+                  const updatedTodos = todos.map((todo) => {
+                    if (body === todo.body)
+                      return { ...todo, active: !complete };
+                    return todo;
+                  });
                   onTodosChange(updatedTodos);
                   setComplete(!complete);
                 }}
