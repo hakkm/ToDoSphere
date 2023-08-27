@@ -1,9 +1,8 @@
 import Todo from "./Todo";
 
 export default function Todos({ todos, filter, onTodosChange }) {
-  console.log(filter);
+  const tasksNoun = todos.length !== 1 ? "tasks" : "task";
   function filterTodo(active) {
-    console.log(active);
     switch (filter) {
       case "All":
         return true;
@@ -16,7 +15,8 @@ export default function Todos({ todos, filter, onTodosChange }) {
   return (
     <>
       <h2>
-        {todos.filter(({ active }) => filterTodo(active)).length} Task Remaining
+        {todos.filter(({ active }) => filterTodo(active)).length} {tasksNoun}{" "}
+        Remaining
       </h2>
       {todos
         .filter(({ active }) => filterTodo(active))
