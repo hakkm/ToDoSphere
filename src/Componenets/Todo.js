@@ -4,10 +4,13 @@ export default function Todo({ todos, body, iscompleted, onTodosChange }) {
   const [complete, setComplete] = useState(iscompleted);
   const [isEditing, setIsEditing] = useState(() => false);
   const inputRef = useRef(null);
+  const editButtonRef = useRef(null);
 
   // focus on input field when pressing edit
   useEffect(() => {
+    console.log("effect");
     if (isEditing) inputRef.current.focus();
+    else editButtonRef.current.focus();
   }, [isEditing]);
 
   function handleSave(e) {
@@ -42,7 +45,9 @@ export default function Todo({ todos, body, iscompleted, onTodosChange }) {
         </label>
       </div>
       <div>
-        <button onClick={() => setIsEditing(true)}>Edit</button>
+        <button ref={editButtonRef} onClick={() => setIsEditing(true)}>
+          Edit
+        </button>
         <button
           onClick={() => {
             const remainingTodos = todos.filter((todo) => todo.body !== body);
