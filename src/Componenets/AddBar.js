@@ -7,7 +7,7 @@ export default function AddBar({ onTodosChange, todos }) {
     e.preventDefault();
     onTodosChange([
       ...todos,
-      { id: `todo-${nanoid()}`, body: add, active: false },
+      { id: `todo-${nanoid()}`, body: add, completed: false },
     ]);
     setAdd("");
   }

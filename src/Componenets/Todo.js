@@ -1,14 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 
-export default function Todo({ todos, body, isActive, onTodosChange }) {
-  const [complete, setComplete] = useState(isActive);
+export default function Todo({ todos, body, iscompleted, onTodosChange }) {
+  const [complete, setComplete] = useState(iscompleted);
   const [isEditing, setIsEditing] = useState(() => false);
   const inputRef = useRef(null);
 
+  // focus on input field when pressing edit
   useEffect(() => {
-    console.log("useEffect calling");
     if (isEditing) inputRef.current.focus();
   }, [isEditing]);
+
   function handleSave(e) {
     e.preventDefault();
     // Edit todo and save
@@ -29,7 +30,8 @@ export default function Todo({ todos, body, isActive, onTodosChange }) {
             checked={complete}
             onChange={(e) => {
               const updatedTodos = todos.map((todo) => {
-                if (body === todo.body) return { ...todo, active: !complete };
+                if (body === todo.body)
+                  return { ...todo, completed: !complete };
                 return todo;
               });
               onTodosChange(updatedTodos);
