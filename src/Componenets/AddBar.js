@@ -1,5 +1,10 @@
 import { useState } from "react";
 import { nanoid } from "nanoid";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function AddBar({ onTodosChange, todos }) {
   const [add, setAdd] = useState("Eat");
@@ -13,15 +18,24 @@ export default function AddBar({ onTodosChange, todos }) {
   }
   return (
     <form onSubmit={handleSubmit}>
-      <label>What Needs To Be Done?</label>
-      <div>
-        <input
+      <Typography variant="h4" component="h1" gutterBottom>
+        <label>What Needs To Be Done?</label>
+      </Typography>
+      <Box sx={{ display: "flex", gap: 1 }}>
+        <TextField
+          id="outlined-basic"
+          label="Do ..."
+          variant="outlined"
+          fullWidth
+          sx={{ mb: 1 }}
           value={add}
           onChange={(e) => setAdd(e.target.value)}
           autoComplete="off"
-        ></input>
-        <button>Add</button>
-      </div>
+        />
+        <Button variant="contained" sx={{ borderRadius: 50 }} type="submit">
+          <AddIcon />
+        </Button>
+      </Box>
     </form>
   );
 }
