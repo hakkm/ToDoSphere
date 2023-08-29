@@ -1,17 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 
 export default function Todo({ todos, body, iscompleted, onTodosChange }) {
-  const [complete, setComplete] = useState(iscompleted);
+  const [complete, setComplete] = useState(() => iscompleted);
   const [isEditing, setIsEditing] = useState(() => false);
+  const wasEditingBefore = useRef(false);
   const inputRef = useRef(null);
   const editButtonRef = useRef(null);
-
-  // focus on input field when pressing edit
-  useEffect(() => {
-    console.log("effect");
-    if (isEditing) inputRef.current.focus();
-    else editButtonRef.current.focus();
-  }, [isEditing]);
 
   function handleSave(e) {
     e.preventDefault();
@@ -23,6 +17,14 @@ export default function Todo({ todos, body, iscompleted, onTodosChange }) {
     onTodosChange(updatedTodos);
     setIsEditing(false);
   }
+
+  // focus on input field when pressing edit
+  useEffect(() => {
+    console.log("effect focus");
+    if (!wasEditingBefore && isEditing) inputRef.current?.focus();
+    if (wasEditingBefore) editButtonRef.current?.focus();
+    wasEditingBefore.current = isEditing;
+  }, [isEditing, wasEditingBefore]);
 
   const editingTemplate = (
     <div>
