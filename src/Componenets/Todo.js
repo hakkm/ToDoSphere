@@ -20,7 +20,6 @@ export default function Todo({ todos, body, iscompleted, onTodosChange }) {
 
   // focus on input field when pressing edit
   useEffect(() => {
-    console.log("effect focus");
     if (!wasEditingBefore && isEditing) inputRef.current?.focus();
     if (wasEditingBefore) editButtonRef.current?.focus();
     wasEditingBefore.current = isEditing;
