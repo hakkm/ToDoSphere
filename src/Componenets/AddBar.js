@@ -21,7 +21,7 @@ export default function AddBar({ onTodosChange, todos }) {
       <Typography variant="h4" component="h1" gutterBottom>
         <label>What Needs To Be Done?</label>
       </Typography>
-      <Box sx={{ display: "flex", gap: 1 }}>
+      <Box sx={{ display: "flex", alignItems: "stretch", gap: 1 }}>
         <TextField
           id="outlined-basic"
           label="Do ..."
@@ -32,8 +32,12 @@ export default function AddBar({ onTodosChange, todos }) {
           onChange={(e) => setAdd(e.target.value)}
           autoComplete="off"
         />
-        <Button variant="contained" sx={{ borderRadius: 50 }} type="submit">
-          <AddIcon />
+        <Button
+          variant="contained"
+          sx={{ borderRadius: 20, m: 0.5 }}
+          type="submit"
+        >
+          <AddIcon sx={{ fontSize: "big" }} />
         </Button>
       </Box>
     </form>

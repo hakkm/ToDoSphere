@@ -5,8 +5,6 @@ import FilterBar from "./Componenets/FilterBar";
 import Todos from "./Componenets/Todos";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControl from "@mui/material/FormControl";
 import CssBaseline from "@mui/material/CssBaseline";
 
 const TODOS = [
@@ -26,24 +24,9 @@ const FILTER_MAP = {
   Completed: (task) => task.completed,
 };
 
-const FILTER_NAMES = Object.keys(FILTER_MAP);
-
 export default function App() {
   const [todos, setTodos] = useState(TODOS);
   const [filter, setFilter] = useState("All");
-  const filterList = (
-    <FormControl>
-      <RadioGroup
-        row
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group"
-      >
-        {FILTER_NAMES.map((name) => (
-          <FilterBar key={name} name={name} onFilterChange={setFilter} />
-        ))}
-      </RadioGroup>
-    </FormControl>
-  );
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -57,7 +40,7 @@ export default function App() {
         }}
       >
         <AddBar onTodosChange={setTodos} todos={todos} />
-        {filterList}
+        <FilterBar filter={filter} onFilterChange={setFilter} />
         <Todos
           FILTER_MAP={FILTER_MAP}
           onTodosChange={setTodos}

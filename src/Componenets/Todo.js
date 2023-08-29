@@ -12,7 +12,7 @@ import TextField from "@mui/material/TextField";
 export default function Todo({ todos, body, iscompleted, onTodosChange }) {
   const [complete, setComplete] = useState(() => iscompleted);
   const [isEditing, setIsEditing] = useState(() => false);
-  const wasEditingBefore = useRef();
+  const wasEditingBefore = useRef(null);
   const inputRef = useRef(null);
   const editButtonRef = useRef(null);
 
@@ -30,8 +30,13 @@ export default function Todo({ todos, body, iscompleted, onTodosChange }) {
   // focus on input field when pressing edit
   useEffect(() => {
     console.log(wasEditingBefore.current);
-    if (!wasEditingBefore && isEditing) inputRef.current?.focus();
-    else if (wasEditingBefore && !isEditing) editButtonRef.current.focus();
+    if (!wasEditingBefore && isEditing) {
+      inputRef.current?.focus();
+      console.log("inputRef");
+    } else if (wasEditingBefore.current && !isEditing) {
+      editButtonRef.current.focus();
+      console.log("editButtonRef");
+    }
     wasEditingBefore.current = isEditing;
   }, [isEditing, wasEditingBefore]);
 
