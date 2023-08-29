@@ -47,6 +47,7 @@ export default function Todo({ todos, body, iscompleted, onTodosChange }) {
       <Box
         sx={{
           display: "flex",
+          alignItems: "center",
         }}
       >
         <Checkbox
@@ -63,7 +64,13 @@ export default function Todo({ todos, body, iscompleted, onTodosChange }) {
         />
 
         <label htmlFor={body}>
-          <Typography id="body" variant="body1" component="p" gutterBottom>
+          <Typography
+            htmlFor={body}
+            id="body"
+            variant="body1"
+            component="p"
+            gutterBottom
+          >
             {body}
           </Typography>
         </label>

@@ -5,10 +5,9 @@ import FilterBar from "./Componenets/FilterBar";
 import Todos from "./Componenets/Todos";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const TODOS = [
   { id: nanoid(), body: "Eat Healthy Food", completed: false },
@@ -47,12 +46,14 @@ export default function App() {
   );
   return (
     <Container component="main" maxWidth="xs">
+      <CssBaseline />
+
       <Box
         sx={{
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          // alignItems: "center",
         }}
       >
         <AddBar onTodosChange={setTodos} todos={todos} />
