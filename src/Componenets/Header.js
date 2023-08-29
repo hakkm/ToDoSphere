@@ -1,5 +1,4 @@
 import AppBar from "@mui/material/AppBar";
-import CameraIcon from "@mui/icons-material/PhotoCamera";
 import Toolbar from "@mui/material/Toolbar";
 import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
 
