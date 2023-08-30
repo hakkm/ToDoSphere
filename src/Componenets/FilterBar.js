@@ -18,8 +18,8 @@ export default function FilterBar({ onFilterChange, filter }) {
         onChange={(e) => onFilterChange(e.target.value)}
         value={filter}
       >
-        {["All", "Active", "Completed"].map((n) => (
-          <FilterButton name={n} />
+        {["All", "Active", "Completed"].map((name) => (
+          <FilterButton key={name} name={name} />
         ))}
       </RadioGroup>
     </FormControl>

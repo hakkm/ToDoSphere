@@ -29,14 +29,10 @@ export default function Todo({ todos, body, iscompleted, onTodosChange }) {
 
   // focus on input field when pressing edit
   useEffect(() => {
-    console.log(wasEditingBefore.current);
-    if (!wasEditingBefore && isEditing) {
-      inputRef.current?.focus();
-      console.log("inputRef");
-    } else if (wasEditingBefore.current && !isEditing) {
+    if (!wasEditingBefore.current && isEditing) inputRef.current.focus();
+    else if (wasEditingBefore.current && !isEditing)
       editButtonRef.current.focus();
-      console.log("editButtonRef");
-    }
+
     wasEditingBefore.current = isEditing;
   }, [isEditing, wasEditingBefore]);
 
@@ -119,7 +115,7 @@ export default function Todo({ todos, body, iscompleted, onTodosChange }) {
           }}
         >
           <TextField
-            ref={inputRef}
+            inputRef={inputRef}
             label={"New name for " + body}
             name="newName"
             variant="standard"
